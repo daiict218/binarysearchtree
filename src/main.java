@@ -10,11 +10,10 @@ public class main {
 		b.insert(4);
 		b.insert(9);
 		b.insert(11);
-		b.insert(2);
 		b.insert(10);
 		b.insert(89);
 		b.insert(12);
-		b.INORDER(b.root);
-		b.Search(2,b.root);
+		b.insert(3);
+		b.Predecessor(2);
 	}
 }

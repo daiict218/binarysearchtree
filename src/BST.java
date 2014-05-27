@@ -48,20 +48,104 @@ public class BST {
 		}
 		if(data == temp1.getData())
 		{
-			System.out.println("Data found");
 			return temp1;
 		}
 		else if(data > temp1.getData())
 		{
-			Search(data,temp1.getRight());
+			return Search(data,temp1.getRight());
 		}
 		else
 		{
-			Search(data,temp1.getLeft());
+			return Search(data,temp1.getLeft());
 		}
-		return null;
 	}
 	
+	
+	public Node Successor(int x)
+	{
+		Node main = Search(x,root);
+		Node z = main.getParent();
+		if(main.getRight()!=null)
+		{
+			Node result = Minimum(main.getRight());
+			System.out.println("Successor is : "+result.getData());
+			return Minimum(main.getRight());
+		}
+		else
+		{
+			if(main.getParent()==null)
+			{
+				System.out.println("No Successor exists");
+				return null;
+			}
+			else
+			{
+				if(main == z.getLeft())
+				{
+					System.out.println("Successor is : "+z.getData());
+					return z;
+				}
+				else
+				{
+					if(main.getData() == maximum(root).getData())
+					{
+						System.out.println("No Successor exists");
+						return null;
+					}
+					while(main != z.getLeft() && z != null)
+					{
+						main = z;
+						z = z.getParent();
+					}
+					System.out.println("Successor is : "+z.getData());
+					return z;
+				}
+			}
+		}
+	}
+	
+	public Node Predecessor(int x)
+	{
+		Node main = Search(x,root);
+		Node z = main.getParent();
+		if(main.getLeft()!=null)
+		{
+			Node result = maximum(main.getLeft());
+			System.out.println("Predecessor is : "+result.getData());
+			return maximum(main.getLeft());
+		}
+		else
+		{
+			if(main.getParent()==null)
+			{
+				System.out.println("No Predecssor exists");
+				return null;
+			}
+			else
+			{
+				if(main == z.getRight())
+				{
+					System.out.println("Predecessor is : "+z.getData());
+					return z;
+				}
+				else
+				{
+					if(main.getData() == Minimum(root).getData())
+					{
+						System.out.println("No Predecessor exists");
+						return null;
+					}
+					while(main != z.getRight() && z != null)
+					{
+						main = z;
+						z = z.getParent();
+					}
+					System.out.println("Successor is : "+z.getData());
+					return z;
+				}
+			}
+		}
+	}
 	
 	public void INORDER(Node x)
 	{
@@ -71,5 +155,51 @@ public class BST {
 			System.out.println(x.getData());
 			INORDER(x.getRight());
 		}
+	}
+	
+	public void PREORDER(Node x)
+	{
+		if(x!=null)
+		{
+			System.out.println(x.getData());
+			PREORDER(x.getLeft());
+			PREORDER(x.getRight());
+		}
+	}
+	
+	public void POSTORDER(Node x)
+	{
+		if(x!=null)
+		{
+			POSTORDER(x.getLeft());
+			POSTORDER(x.getRight());
+			System.out.println(x.getData());
+		}
+	}
+	
+	public Node maximum(Node node)
+	{
+		Node prev = null;
+		Node temp = node;
+		while(temp!=null)
+		{
+			prev = temp;
+			temp = temp.getRight();
+		}
+		//System.out.println("Maximum element in the tree is : "+prev.getData());
+		return prev;
+	}
+	
+	public Node Minimum(Node node)
+	{
+		Node prev = null;
+		Node temp = node;
+		while(temp!=null)
+		{
+			prev = temp;
+			temp = temp.getLeft();
+		}
+		//System.out.println("Minimum in the tree is : "+prev.getData());
+		return prev;
 	}
 }
