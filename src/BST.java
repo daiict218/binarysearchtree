@@ -68,28 +68,28 @@ public class BST {
 		if(main.getRight()!=null)
 		{
 			Node result = Minimum(main.getRight());
-			System.out.println("Successor is : "+result.getData());
-			return Minimum(main.getRight());
+			//System.out.println("Successor is : "+result.getData());
+			return result;
 		}
 		else
 		{
 			if(main.getParent()==null)
 			{
-				System.out.println("No Successor exists");
+				//System.out.println("No Successor exists");
 				return null;
 			}
 			else
 			{
 				if(main == z.getLeft())
 				{
-					System.out.println("Successor is : "+z.getData());
+					//System.out.println("Successor is : "+z.getData());
 					return z;
 				}
 				else
 				{
 					if(main.getData() == maximum(root).getData())
 					{
-						System.out.println("No Successor exists");
+						//System.out.println("No Successor exists");
 						return null;
 					}
 					while(main != z.getLeft() && z != null)
@@ -97,7 +97,7 @@ public class BST {
 						main = z;
 						z = z.getParent();
 					}
-					System.out.println("Successor is : "+z.getData());
+					//System.out.println("Successor is : "+z.getData());
 					return z;
 				}
 			}
@@ -201,5 +201,141 @@ public class BST {
 		}
 		//System.out.println("Minimum in the tree is : "+prev.getData());
 		return prev;
+	}
+	
+	public void DeleteKey(int key)
+	{
+		Delete(Search(key,root));
+	}
+	
+	public Node Delete(Node x)
+	{
+		if(x.getLeft()==null && x.getRight()==null && x == root)
+		{
+			root = null;
+			return x;
+		}
+		if(x.getLeft()==null && x.getRight()==null && x!=root)
+		{
+			Node parent = x.getParent();
+			if(parent.getRight()==x)
+			{
+				parent.setRight(null);
+				x.setParent(null);
+				return x;
+			}
+			if(parent.getLeft()==x)
+			{
+				x.setParent(null);
+				parent.setLeft(null);
+				return x;
+			}
+		}
+		if(x.getLeft()==null && x.getRight()!=null && x==root)
+		{
+			root = x.getRight();
+			x.setRight(null);
+			root.setParent(null);
+			return x;
+		}
+		if(x.getLeft()!=null && x.getRight()==null && x==root)
+		{
+			root = x.getLeft();
+			x.setLeft(null);
+			root.setParent(null);
+			return x;
+		}
+		if(x.getLeft()==null && x.getRight()!=null && x!=root)
+		{
+			Node parent = x.getParent();
+			if(parent.getLeft()==x)
+			{
+				parent.setLeft(x.getRight());
+				x.getRight().setParent(parent);
+				x.setParent(null);
+				x.setRight(null);
+				return x;
+			}
+			else
+			{
+				parent.setRight(x.getRight());
+				x.getRight().setParent(parent);
+				x.setParent(null);
+				x.setRight(null);
+				return x;
+			}
+		}
+		if(x.getLeft()!=null && x.getRight()==null && x!=root)
+		{
+			Node parent = x.getParent();
+			if(parent.getLeft()==x)
+			{
+				parent.setLeft(x.getLeft());
+				x.getLeft().setParent(parent);
+				x.setParent(null);
+				x.setLeft(null);
+				return x;
+			}
+			else
+			{
+				parent.setRight(x.getLeft());
+				x.getLeft().setParent(parent);
+				x.setParent(null);
+				x.setLeft(null);
+				return x;
+			}
+		}
+		if(x.getLeft()!=null && x.getRight()!=null && x==root)
+		{
+			Node s = Successor(x.getData());
+			Delete(s);
+			s.setParent(null);
+			s.setLeft(root.getLeft());
+			s.setRight(root.getRight());
+			root.getRight().setParent(s);
+			root.getLeft().setParent(s);
+			root.setLeft(null);
+			root.setRight(null);
+			root = s;
+			return x;
+		}
+		
+		if(x.getLeft()!=null && x.getRight()!=null && x!=root)
+		{
+			Node s = Successor(x.getData());
+			if(x.getParent().getRight()==x)
+				x.getParent().setRight(s);
+			else
+				x.getParent().setLeft(s);
+			s.setParent(x.getParent());
+			s.setLeft(x.getLeft());
+			x.setRight(null);
+			x.setParent(null);
+			return x;
+		}
+		return null;
+	}
+	
+	public int max(Node x)
+	{
+		if(x.getRight()== null)
+		{
+			return x.getData();
+		}
+		else
+		{
+			return max(x.getRight());
+		}
+	}
+	
+	public void Inorder()
+	{
+		Node x=Minimum(root);
+		System.out.println(x.getData());
+		while(Successor(x.getData())!=null)
+		{
+			System.out.println(x.getData());
+			x = Successor(x.getData());
+		}
 	}
 }
