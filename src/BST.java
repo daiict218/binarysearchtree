@@ -1,15 +1,56 @@
+import java.util.Stack;
+
 
 public class BST {
 	Node root;
 	Node temp = root;
 	
+	public void insertRec(int data)
+	{
+		Node nodetoadd = new Node(data);
+		Node prev=null;
+		insertR(nodetoadd,root,prev);
+	}
+	
+	public void insertR(Node nodetoadd,Node temp,Node prev)
+	{
+		if(root==null)
+		{
+			root = nodetoadd;
+		}
+		else
+		{
+			if(temp==null)
+			{
+				nodetoadd.setParent(prev);
+				if(nodetoadd.getData() >= prev.getData())
+				{
+					prev.setRight(nodetoadd);
+				}
+				else
+				{
+					prev.setLeft(nodetoadd);
+				}
+			}
+			else if(nodetoadd.getData() >= temp.getData())
+			{
+				prev = temp;
+				insertR(nodetoadd,temp.getRight(),prev);
+			}
+			else
+			{
+				prev = temp;
+				insertR(nodetoadd,temp.getLeft(),prev);
+			}
+		} 
+	}
 	public void insert(int data)
 	{
 		Node nodetoadd = new Node(data);
 		if(root==null)
 		{
 			root = nodetoadd;
-		}
+		} 
 		else
 		{
 			Node temp = root;
@@ -331,7 +372,7 @@ public class BST {
 	public void Inorder()
 	{
 		Node x=Minimum(root);
-		System.out.println(x.getData());
+		//System.out.println(x.getData());
 		while(Successor(x.getData())!=null)
 		{
 			System.out.println(x.getData());

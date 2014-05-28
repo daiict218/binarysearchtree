@@ -4,18 +4,19 @@ public class main {
 	{
 		Scanner s = new Scanner(System.in);
 		BST b = new BST();
-		b.insert(2);
-		b.insert(1);
-		b.insert(7);
-		b.insert(8);
-		b.insert(42);
-		b.insert(4);
-		b.insert(9);
-		b.insert(11);
-		b.insert(10);
-		b.insert(89);
-		b.insert(12);
-		b.insert(3);
+		b.insertRec(2);
+		b.insertRec(1);
+		//b.INORDER(b.root);
+		b.insertRec(7);
+		b.insertRec(8);
+		b.insertRec(42);
+		b.insertRec(4);
+		b.insertRec(9);
+		b.insertRec(11);
+		b.insertRec(10);
+		b.insertRec(89);
+		b.insertRec(12);
+		b.insertRec(3);
 		b.Inorder();
 	}
 }
