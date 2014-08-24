@@ -17,6 +17,6 @@ public class main {
 		b.insertRec(89);
 		b.insertRec(12);
 		b.insertRec(3);
-		b.Inorder();
+		b.levelOrder();
 	}
 }

@@ -1,5 +1,5 @@
 import java.util.Stack;
-
+import java.util.LinkedList;
 
 public class BST {
 	Node root;
@@ -378,5 +378,34 @@ public class BST {
 			System.out.println(x.getData());
 			x = Successor(x.getData());
 		}
+	}
+	
+	public void levelOrder()
+	{
+		LinkedList<Node> q = new LinkedList<Node>();
+		q.add(root);
+		int height = 0;
+		int l;
+		Node temp = root;
+		while(!q.isEmpty())
+		{
+			l = height;
+			temp = q.removeFirst();
+			System.out.println(temp.getData());
+			if(temp.getRight()!=null)
+			{
+				height++;			
+				q.add(temp.getRight());
+			}
+			if(temp.getLeft()!=null)
+			{
+				if(height!=l+1)
+				{	
+					height++;
+				}
+				q.add(temp.getLeft());
+			}
+		}
+		System.out.println("Height of binary Search tree is "+(height-1));
 	}
 }
